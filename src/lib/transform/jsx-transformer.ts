@@ -89,6 +89,7 @@ export interface ImportMapResult {
   errors: Array<{ path: string; error: string }>;
 }
 
+
 export function createImportMap(files: Map<string, string>): ImportMapResult {
   const imports: Record<string, string> = {
     react: "https://esm.sh/react@19",
@@ -127,7 +128,6 @@ export function createImportMap(files: Map<string, string>): ImportMapResult {
         continue;
       }
       
-      // Normal successful transform
       const blobUrl = createBlobURL(code);
       transformedFiles.set(path, blobUrl);
 

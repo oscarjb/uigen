@@ -179,21 +179,13 @@ describe("ChatContext", () => {
 
   test("handles tool calls", () => {
     let onToolCallHandler: any;
-
     (useAIChat as any).mockImplementation((config: any) => {
       onToolCallHandler = config.onToolCall;
       return mockUseAIChat;
     });
-
-    render(
-      <ChatProvider>
-        <TestComponent />
-      </ChatProvider>
-    );
-
+    render(<ChatProvider><TestComponent /></ChatProvider>);
     const toolCall = { toolName: "test", args: {} };
     onToolCallHandler({ toolCall });
-
     expect(mockHandleToolCall).toHaveBeenCalledWith(toolCall);
   });
 });

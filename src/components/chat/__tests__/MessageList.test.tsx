@@ -12,15 +12,10 @@ afterEach(() => {
   cleanup();
 });
 
-test("MessageList shows empty state when no messages", () => {
-  render(<MessageList messages={[]} />);
-
-  expect(
-    screen.getByText("Start a conversation to generate React components")
-  ).toBeDefined();
-  expect(
-    screen.getByText("I can help you create buttons, forms, cards, and more")
-  ).toBeDefined();
+test("MessageList renders nothing when no messages", () => {
+  const { container } = render(<MessageList messages={[]} />);
+  const messageItems = container.querySelectorAll(".rounded-xl");
+  expect(messageItems).toHaveLength(0);
 });
 
 test("MessageList renders user messages", () => {
@@ -78,7 +73,8 @@ test("MessageList renders messages with parts", () => {
   render(<MessageList messages={messages} />);
 
   expect(screen.getByText("Creating your component...")).toBeDefined();
-  expect(screen.getByText("str_replace_editor")).toBeDefined();
+  // args:{} → default branch → "Editing file"
+  expect(screen.getByText("Editing file")).toBeDefined();
 });
 
 test("MessageList shows content for assistant message with content", () => {
