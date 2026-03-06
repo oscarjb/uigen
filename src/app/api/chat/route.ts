@@ -29,8 +29,7 @@ export async function POST(req: Request) {
   fileSystem.deserializeFromNodes(files);
 
   const model = getLanguageModel();
-  // Use fewer steps for mock provider to prevent repetition
-  const isMockProvider = !process.env.ANTHROPIC_API_KEY;
+  const isMockProvider = !process.env.ANTHROPIC_API_KEY?.trim() && !process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim();
   const result = streamText({
     model,
     messages,
